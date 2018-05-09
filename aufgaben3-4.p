@@ -50,37 +50,33 @@ program TesteSortiereListe(input, output);
         
       { Fall 3: richtige EinfuegePosition im sortieten Teil suchen und verschieben }
 
-      else if WirdJetztSortiert^.wert < IstSchonSortiert^.wert then
-      begin
-        EinfuegePosition := ioRefListe; 
-        if WirdJetztSortiert^.next = nil then
+      else 
+        if WirdJetztSortiert^.wert < IstSchonSortiert^.wert then
         begin
-          IstSchonSortiert^.next := nil
-        end
-        else
-        begin
-          IstSchonSortiert^.next := WirdJetztSortiert^.next
-        end;
+          EinfuegePosition := ioRefListe; 
+          if WirdJetztSortiert^.next = nil then
+            IstSchonSortiert^.next := nil
+          else
+            IstSchonSortiert^.next := WirdJetztSortiert^.next
 
-        repeat 
-          
-          if WirdJetztSortiert^.wert <= EinfuegePosition^.wert then
-          begin
-            WirdJetztSortiert^.next := EinfuegePosition;
-
-            EinfuegePosition := ioRefListe;
-            
-            while EinfuegePosition^.next <> WirdJetztSortiert^.next do
+          repeat 
+            if WirdJetztSortiert^.wert <= EinfuegePosition^.wert then
             begin
-              EinfuegePosition := EinfuegePosition^.next
-            end;
-            EinfuegePosition^.next := WirdJetztSortiert;
-            istEingefuegt := true;
+              WirdJetztSortiert^.next := EinfuegePosition;
 
-          end;
-          EinfuegePosition := EinfuegePosition^.next; 
-        until istEingefuegt = true;
-      end;
+              EinfuegePosition := ioRefListe;
+              
+              while EinfuegePosition^.next <> WirdJetztSortiert^.next do
+              begin
+                EinfuegePosition := EinfuegePosition^.next
+              end;
+              EinfuegePosition^.next := WirdJetztSortiert;
+              istEingefuegt := true;
+            end; { repeat-Schleife }
+
+            EinfuegePosition := EinfuegePosition^.next; 
+          until istEingefuegt = true;
+        end;
       WirdJetztSortiert := IstSchonSortiert^.next
 
     end
